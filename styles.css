@@ -152,3 +152,9 @@ header {
   background-color: #938284;
   cursor: pointer;
 }
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: #938284;
+    cursor: pointer;
+}
