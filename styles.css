@@ -1,0 +1,144 @@
+* {
+  font-family: Open Sans, sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background-color: #C2B2B4;
+}
+
+header {
+  background-color: #3E2A35;
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-title-foto {
+  color: #FFFFFF;
+  font-weight: 800;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.page-title-finder {
+  color: #FFFFFF; 
+  font-weight: 800;
+}
+
+.site-logo {
+  height: 50px;
+  width: 50px;
+  padding: 0px 10px;
+  margin-bottom: -10px;
+}
+
+.search-form {
+  display: flex;
+  padding: 25px;
+  height: 30px;
+  width: 260px;
+}
+
+#search-input {
+  border-radius: 5px 0px 0px 5px;
+  border: none;
+  color: #8A8494;
+  width: 100%;
+  padding-left: 5px;
+}
+
+.search-button {
+  background-color: #C2C1C0;
+  border-radius: 0px 5px 5px 0px;
+  border: none;
+}
+
+.search-button:hover {
+  cursor: pointer;
+}
+
+.fa-search {
+  color: #FFFFFF;
+  padding: 6px;
+}
+
+.entry-section {
+  background-color: #3E2A35;
+  padding-top: 20px;
+}
+
+.labels {
+  color: #c2b2b4;
+  font-weight: 600;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+  margin: 0 auto;
+  margin-top: 16px;
+}
+
+#title-input,
+#caption-input {
+  border: solid 1px #d4d2d8;
+  border-radius: 2px;
+  height: 38px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  width: 74.5%;
+  margin: 0 auto;
+  font-weight: 800;
+  margin-top: 40px;
+  align-items: center;
+  padding-top: 13px;
+}
+
+.choose-button {
+  height: 45px;
+  margin-top: -14px;
+  color: #FFFFFF;
+  background-color: #5B4447;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-weight: 600;
+}
+
+.row-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 78%;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+#favorite-button,
+#add-button {
+  height: 45px;
+  margin-bottom: 35px;
+  color: #FFFFFF;
+  background-color: #5B4447;
+  border: none;
+  width: 250px;
+  margin-left: 15px;
+  outline: none;
+  font-weight: 600;
+
+}
+
+#add-button {
+  margin-right: 14px;
+}
+
+.choose-button:hover,
+#favorite-button:hover,
+#add-button:hover  {
+  background-color: #938284;
+  cursor: pointer;
+}
