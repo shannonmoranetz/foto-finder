@@ -81,6 +81,28 @@ header {
   margin-top: 16px;
 }
 
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  height: 35px;
+  margin-top: -14px;
+  color: #FFFFFF;
+  background-color: #5B4447;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-weight: 600;
+  width: 74%;
+  padding-top: 14px;
+}
+
 #title-input,
 #caption-input {
   border: solid 1px #d4d2d8;
@@ -97,17 +119,6 @@ header {
   margin-top: 40px;
   align-items: center;
   padding-top: 13px;
-}
-
-.choose-button {
-  height: 45px;
-  margin-top: -14px;
-  color: #FFFFFF;
-  background-color: #5B4447;
-  border: none;
-  text-align: center;
-  outline: none;
-  font-weight: 600;
 }
 
 .row-buttons {
@@ -129,7 +140,6 @@ header {
   margin-left: 15px;
   outline: none;
   font-weight: 600;
-
 }
 
 #add-button {
