@@ -13,7 +13,7 @@ function reloadCards() {
 
 function setProperties() {
   var upload = document.querySelector('.inputfile').files[0];
-  var url = URL.createObjectURL(upload)
+  var url = URL.createObjectURL(upload);
   var newPhoto = new Photo('', titleInput.value, captionInput.value, url, '');
   newPhoto.saveToStorage(); 
   addCard(newPhoto);
@@ -62,7 +62,6 @@ function updateCard(e) {
 
   if (e.target.className === 'card-title') {
     photo.updatePhoto(e.target.innerText, 'title');
-    console.log(e.target.innerText);
   }
   if (e.target.className === 'card-caption') {
     photo.updatePhoto(e.target.innerText, 'caption');
