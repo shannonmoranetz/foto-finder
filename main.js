@@ -117,7 +117,6 @@ function searchFilter() {
     let localStorageTitle = JSON.parse(localStorage[cardObj]).title;
     let localStorageCaption = JSON.parse(localStorage[cardObj]).caption;
     let searchInput = document.getElementById('search-input').value.toLowerCase();
-    
       if (!localStorageTitle.toLowerCase().includes(searchInput) && !localStorageCaption.toLowerCase().includes(searchInput)) {
         matchingCards.classList.add('display-mode-none');
       } else if (localStorageTitle.toLowerCase().includes(searchInput) && localStorageCaption.toLowerCase().includes(searchInput)) {
@@ -126,3 +125,15 @@ function searchFilter() {
   });
 }
 
+document.getElementById('favorite-button').addEventListener('click', viewFavorites);
+
+function viewFavorites(e) {
+var cardy = document.querySelector('.photo-card');
+  Object.keys(localStorage).forEach(function(cardObj) {
+    if (photo.favorite) {
+      cardy.classList.add('display-mode-none');
+  } else {
+      cardy.classList.remove('display-mode-none');
+  }
+  })
+}
