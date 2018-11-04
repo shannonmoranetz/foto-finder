@@ -81,6 +81,28 @@ header {
   margin-top: 16px;
 }
 
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  height: 35px;
+  margin-top: -14px;
+  color: #FFFFFF;
+  background-color: #5B4447;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-weight: 600;
+  width: 74%;
+  padding-top: 14px;
+}
+
 #title-input,
 #caption-input {
   border: solid 1px #d4d2d8;
@@ -97,17 +119,6 @@ header {
   margin-top: 40px;
   align-items: center;
   padding-top: 13px;
-}
-
-.choose-button {
-  height: 45px;
-  margin-top: -14px;
-  color: #FFFFFF;
-  background-color: #5B4447;
-  border: none;
-  text-align: center;
-  outline: none;
-  font-weight: 600;
 }
 
 .row-buttons {
@@ -129,7 +140,6 @@ header {
   margin-left: 15px;
   outline: none;
   font-weight: 600;
-
 }
 
 #add-button {
@@ -142,3 +152,86 @@ header {
   background-color: #938284;
   cursor: pointer;
 }
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #938284;
+  cursor: pointer;
+}
+
+/* cards */
+
+.card-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.card-content, 
+.card-bottom {
+  margin-left: 60px;
+}
+
+.card-title {
+  color: #3E2A35;
+  padding: 5px 10px;
+  font-size: 18px;
+}
+
+.card-caption {
+  height: 70px;
+  color: #3E2A35;
+  padding: 5px 10px;
+  overflow: hidden;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 220px;
+  margin-top: 40px;
+  border-right: 2px solid #938284;
+  border-left: 2px solid #938284;
+  border-top: 2px solid #938284;
+}
+
+.card-bottom {
+  background-color: #5B4447;
+  width: 180px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 8px 20px;
+  margin-bottom: 40px;
+  border-bottom: 2px solid #938284;
+  border-right: 2px solid #938284;
+  border-left: 2px solid #938284;
+}
+
+h2 {
+  background-color: #FFFFFF;
+}
+
+h4 {
+  background-color: #FFFFFF;
+}
+
+.card-icon {
+  height: 32px;
+  width: 32px;
+}
+
+.card-icon:hover {
+  cursor: pointer;
+}
+
+.card-image {
+ object-fit: fill;
+ width:  100%;
+ height: 150px;
+ background-repeat: no-repeat;
+}
+
+
+
