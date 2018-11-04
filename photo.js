@@ -4,7 +4,7 @@ class Photo {
     this.title = title;
     this.caption = caption;
     this.file = file;
-    this.favorite = favorite;
+    this.favorite = favorite || false;
   };
 
   saveToStorage() {
@@ -15,7 +15,8 @@ class Photo {
     localStorage.removeItem(this.id);
   };
 
-  updatePhoto() {
-}; 
-
-}
+  updatePhoto(text, type) {
+    this[type] = text;
+    this.saveToStorage();
+  }
+};
