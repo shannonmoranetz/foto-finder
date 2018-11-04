@@ -77,17 +77,29 @@ function favorite(e) {
     var photoObj = JSON.parse(json);
     var {id, title, caption, file, favorite} = photoObj;
     var photo = new Photo(id, title, caption, file, favorite);
-    
-      if(e.target.className === 'favorite-icon card-icon') {
+
+      if(photo.favorite === false) {
         photo.favorite = true;
-        console.log(photo.favorite);
+        photo.saveToStorage();
+        changeImage();
       }
       else {
         photo.favorite = false;
-        console.log(photo.favorite);
+        photo.saveToStorage();
+        changeImage();
       }
 }
 
+function changeImage() {
+   if (document.querySelector('.favorite-icon').src === "images/favorite.svg") 
+        {
+            document.getElementById('.favorite-icon').src = "images/favorite-active";
+        }
+    else 
+        {
+            document.getElementById('.favorite-icon').src = "images/favorite.svg";
+        }
+}
 
 
 
