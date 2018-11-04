@@ -125,15 +125,15 @@ function searchFilter() {
   });
 }
 
-document.getElementById('favorite-button').addEventListener('click', viewFavorites);
+// document.getElementById('favorite-button').addEventListener('click', viewFavorites());
 
-function viewFavorites(e) {
-var cardy = document.querySelector('.photo-card');
-  Object.keys(localStorage).forEach(function(cardObj) {
-    if (photo.favorite) {
-      cardy.classList.add('display-mode-none');
-  } else {
-      cardy.classList.remove('display-mode-none');
-  }
-  })
-}
+// function viewFavorites() {
+
+//     if (photo.favorite) {
+//       document.querySelector('.photo-card').classList.add('display-mode-none');
+//       console.log('fire');
+//   } else {
+//       document.querySelector('.photo-card').classList.remove('display-mode-none');
+//       console.log('elsefire');
+//   }
+// }
