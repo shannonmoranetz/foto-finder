@@ -17,7 +17,7 @@ function setProperties() {
   var newPhoto = new Photo('', titleInput.value, captionInput.value, url, '');
   newPhoto.saveToStorage(); 
   addCard(newPhoto);
-}
+};
 
 function addCard(photo) {
   var card = document.createElement('section');
@@ -26,17 +26,16 @@ function addCard(photo) {
   card.innerHTML = 
   `<div class="card-content">
   <h2 class="card-title" id="${photo.id}" contenteditable= "true">${photo.title}</h2>
-  <h4 class="card-caption" contenteditable="true">${photo.caption}</h4>
   <img class="card-image" src=${photo.file}>
+  <h4 class="card-caption" contenteditable="true">${photo.caption}</h4>
   </div>
   <div class="card-bottom">
   <img class="delete-icon card-icon" src="images/delete.svg">
-
-  <img class="favorite-icon card-icon" src="${elem.src}">
+  <img class="favorite-icon card-icon" src="images/favorite.svg">
   </div>
   `
   cardSection.insertBefore(card, cardSection.firstChild); 
-}
+};
 
 document.querySelector('.card-section').addEventListener('click', removeCard);
 
@@ -73,6 +72,7 @@ function updateCard(e) {
 document.querySelector('.card-section').addEventListener('click', favorite);
 
 function favorite(e) {
+   if (e.target.className === 'favorite-icon card-icon') {
   var id = e.target.closest('.photo-card').firstChild.firstChild.nextSibling.id;
   var json = localStorage.getItem(id);
   var photoObj = JSON.parse(json);
@@ -82,7 +82,7 @@ function favorite(e) {
   if(photo.favorite === false) {
     photo.favorite = true;
     photo.saveToStorage();
-    changeImage(e, photo);        
+    changeImage(e, photo);
   }
   else {
     photo.favorite = false;   
@@ -90,26 +90,15 @@ function favorite(e) {
     changeImage(e, photo);        
   }
 }
+};
 
 function changeImage(e, photo) {
-  var elem = e.target.closest('.card-section').firstChild.firstChild.nextSibling.nextSibling.firstChild.nextSibling.nextSibling.nextSibling;
+  var elem = e.target;
   if (photo.favorite) {
     elem.src = "images/favorite-active.svg";
   } else {
     elem.src = "images/favorite.svg";
   }
-}
-
-
-
-
-
-
-
-
-
-
-
-
+};
 
 
