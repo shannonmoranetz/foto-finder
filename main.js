@@ -1,5 +1,6 @@
 var titleInput = document.getElementById('title-input');
 var captionInput = document.getElementById('caption-input');
+var counter = 0;
 
 document.getElementById('add-button').addEventListener('click', setProperties);
 
@@ -16,13 +17,16 @@ function setProperties() {
   var url = URL.createObjectURL(upload);
   var newPhoto = new Photo('', titleInput.value, captionInput.value, url, '');
   newPhoto.saveToStorage(); 
-  addCard(newPhoto);
+  addCard(newPhoto); 
 };
 
 function addCard(photo) {
   var card = document.createElement('section');
   var cardSection = document.querySelector('.card-section');
   card.className = 'photo-card';
+  if (photo.favorite) {
+    update(photo.favorite);
+  }
   card.innerHTML = 
   `<div class="card-content">
   <h2 class="card-title" id="${photo.id}" contenteditable= "true">${photo.title}</h2>
@@ -44,6 +48,15 @@ function favoriteImage(photo) {
     return "images/favorite.svg";
   }
 }
+
+function changeImage(e, photo) {
+  var elem = e.target;
+  if (photo.favorite) {
+    elem.src = "images/favorite-active.svg";
+  } else {
+    elem.src = "images/favorite.svg";
+  }
+};
 
 document.querySelector('.card-section').addEventListener('click', removeCard);
 
@@ -85,28 +98,22 @@ function favorite(e) {
   var photoObj = JSON.parse(json);
   var {id, title, caption, file, favorite} = photoObj;
   var photo = new Photo(id, title, caption, file, favorite);
-
-  if(photo.favorite === false) {
-    photo.favorite = true;
-    photo.saveToStorage();
-    changeImage(e, photo);
-  }
-  else {
-    photo.favorite = false;   
-    photo.saveToStorage();
-    changeImage(e, photo);
-  }
+  photo.favorite = !photo.favorite;
+  photo.saveToStorage();
+  changeImage(e, photo);
+  update(photo.favorite);
 }
 };
 
-function changeImage(e, photo) {
-  var elem = e.target;
-  if (photo.favorite) {
-    elem.src = "images/favorite-active.svg";
-  } else {
-    elem.src = "images/favorite.svg";
+function update(inc) {
+  if(inc) {
+    counter++;
   }
-};
+  else { 
+    counter--;
+  }
+  document.getElementById('favorite-button').innerText = `View ${counter} Favorites`;
+}
 
 document.getElementById('search-input').addEventListener('keyup', searchFilter);
 
@@ -125,7 +132,7 @@ function searchFilter() {
   });
 }
 
-// document.getElementById('favorite-button').addEventListener('click', viewFavorites());
+// document.getElementById('favorite-button').addEventListener('click', viewFavorites);
 
 // function viewFavorites() {
 

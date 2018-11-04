@@ -180,6 +180,7 @@ header {
   color: #3E2A35;
   padding: 5px 10px;
   font-size: 18px;
+  overflow: hidden;
 }
 
 .card-caption {
