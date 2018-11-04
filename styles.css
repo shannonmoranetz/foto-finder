@@ -14,6 +14,10 @@ header {
   justify-content: space-between;
 }
 
+.display-mode-none {
+  display: none;
+}
+
 .page-title-foto {
   color: #FFFFFF;
   font-weight: 800;

@@ -31,11 +31,19 @@ function addCard(photo) {
   </div>
   <div class="card-bottom">
   <img class="delete-icon card-icon" src="images/delete.svg">
-  <img class="favorite-icon card-icon" src="images/favorite.svg">
+  <img class="favorite-icon card-icon" src="${favoriteImage(photo)}">
   </div>
   `
   cardSection.insertBefore(card, cardSection.firstChild); 
 };
+
+function favoriteImage(photo) {
+  if (photo.favorite) {
+    return "images/favorite-active.svg";
+  } else {
+    return "images/favorite.svg";
+  }
+}
 
 document.querySelector('.card-section').addEventListener('click', removeCard);
 
@@ -71,7 +79,7 @@ function updateCard(e) {
 document.querySelector('.card-section').addEventListener('click', favorite);
 
 function favorite(e) {
-   if (e.target.className === 'favorite-icon card-icon') {
+ if (e.target.className === 'favorite-icon card-icon') {
   var id = e.target.closest('.photo-card').firstChild.firstChild.nextSibling.id;
   var json = localStorage.getItem(id);
   var photoObj = JSON.parse(json);
@@ -86,7 +94,7 @@ function favorite(e) {
   else {
     photo.favorite = false;   
     photo.saveToStorage();
-    changeImage(e, photo);        
+    changeImage(e, photo);
   }
 }
 };
@@ -100,4 +108,21 @@ function changeImage(e, photo) {
   }
 };
 
+document.getElementById('search-input').addEventListener('keyup', searchFilter);
+
+function searchFilter() {
+  Object.keys(localStorage).forEach(function(cardObj) {
+    let matchingCardsObject = document.getElementById(`${JSON.parse(localStorage[cardObj]).id}`);
+    let matchingCards = matchingCardsObject.parentNode.parentNode;
+    let localStorageTitle = JSON.parse(localStorage[cardObj]).title;
+    let localStorageCaption = JSON.parse(localStorage[cardObj]).caption;
+    let searchInput = document.getElementById('search-input').value.toLowerCase();
+    
+      if (!localStorageTitle.toLowerCase().includes(searchInput) && !localStorageCaption.toLowerCase().includes(searchInput)) {
+        matchingCards.classList.add('display-mode-none');
+      } else if (localStorageTitle.toLowerCase().includes(searchInput) && localStorageCaption.toLowerCase().includes(searchInput)) {
+        matchingCards.classList.remove('display-mode-none');
+      }
+  });
+}
 
