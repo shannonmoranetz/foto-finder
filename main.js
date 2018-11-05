@@ -76,6 +76,12 @@ function removeCard(e) {
 };
 
 document.querySelector('.card-section').addEventListener('focusout', updateCard);
+document.querySelector('.card-section').addEventListener('keyup', function(e) {
+  if (e.keyCode === 13) {
+    updateCard(e);
+  }
+});
+
 
 function updateCard(e) {
   var id = e.target.closest('.photo-card').firstChild.firstChild.nextSibling.id;
@@ -122,6 +128,8 @@ document.getElementById('search-input').addEventListener('keyup', searchFilter);
 
 function searchFilter() {
   //logic to find out whether it includes favorite-active and then do below
+
+
   Object.keys(localStorage).forEach(function(cardObj) {
     let matchingCardsObject = document.getElementById(`${JSON.parse(localStorage[cardObj]).id}`);
     let matchingCards = matchingCardsObject.parentNode.parentNode;
