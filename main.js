@@ -24,9 +24,6 @@ function addCard(photo) {
   var card = document.createElement('section');
   var cardSection = document.querySelector('.card-section');
   card.className = 'photo-card';
-  if (photo.favorite) {
-    update(photo.favorite);
-  }
   card.innerHTML = 
   `<div class="card-content">
   <h2 class="card-title" id="${photo.id}" contenteditable= "true">${photo.title}</h2>
@@ -39,6 +36,10 @@ function addCard(photo) {
   </div>
   `
   cardSection.insertBefore(card, cardSection.firstChild); 
+  if (photo.favorite) {
+    update(photo.favorite);
+    document.querySelector('.favorite-icon').classList.add('favorite-active');
+  }
 };
 
 function favoriteImage(photo) {
@@ -52,9 +53,11 @@ function favoriteImage(photo) {
 function changeImage(e, photo) {
   var elem = e.target;
   if (photo.favorite) {
+    elem.classList.add('favorite-active');
     elem.src = "images/favorite-active.svg";
   } else {
     elem.src = "images/favorite.svg";
+    elem.classList.remove('favorite-active');
   }
 };
 
@@ -92,17 +95,17 @@ function updateCard(e) {
 document.querySelector('.card-section').addEventListener('click', favorite);
 
 function favorite(e) {
- if (e.target.className === 'favorite-icon card-icon') {
-  var id = e.target.closest('.photo-card').firstChild.firstChild.nextSibling.id;
-  var json = localStorage.getItem(id);
-  var photoObj = JSON.parse(json);
-  var {id, title, caption, file, favorite} = photoObj;
-  var photo = new Photo(id, title, caption, file, favorite);
-  photo.favorite = !photo.favorite;
-  photo.saveToStorage();
-  changeImage(e, photo);
-  update(photo.favorite);
-}
+  if (e.target.classList.contains('favorite-icon')) {
+    var id = e.target.closest('.photo-card').firstChild.firstChild.nextSibling.id;
+    var json = localStorage.getItem(id);
+    var photoObj = JSON.parse(json);
+    var {id, title, caption, file, favorite} = photoObj;
+    var photo = new Photo(id, title, caption, file, favorite);
+    photo.favorite = !photo.favorite;
+    photo.saveToStorage();
+    changeImage(e, photo);
+    update(photo.favorite);
+  }
 };
 
 function update(inc) {
@@ -124,23 +127,44 @@ function searchFilter() {
     let localStorageTitle = JSON.parse(localStorage[cardObj]).title;
     let localStorageCaption = JSON.parse(localStorage[cardObj]).caption;
     let searchInput = document.getElementById('search-input').value.toLowerCase();
-      if (!localStorageTitle.toLowerCase().includes(searchInput) && !localStorageCaption.toLowerCase().includes(searchInput)) {
-        matchingCards.classList.add('display-mode-none');
-      } else if (localStorageTitle.toLowerCase().includes(searchInput) && localStorageCaption.toLowerCase().includes(searchInput)) {
-        matchingCards.classList.remove('display-mode-none');
-      }
+    if (!localStorageTitle.toLowerCase().includes(searchInput) && !localStorageCaption.toLowerCase().includes(searchInput)) {
+      matchingCards.classList.add('display-mode-none');
+    } else if (localStorageTitle.toLowerCase().includes(searchInput) && localStorageCaption.toLowerCase().includes(searchInput)) {
+      matchingCards.classList.remove('display-mode-none');
+    }
   });
 }
 
-// document.getElementById('favorite-button').addEventListener('click', viewFavorites);
+document.getElementById('favorite-button').addEventListener('click', setFavorites);
 
-// function viewFavorites() {
+function setFavorites() {
+  var cards = document.querySelectorAll('.photo-card');
+  if (document.getElementById('favorite-button').innerHTML === `View ${counter} Favorites`) {
+    document.getElementById('favorite-button').innerHTML = 'View All Photos';
+    cards.forEach(function(card) {
+      if (card.childNodes[2].childNodes[3].classList.contains('favorite-active')) {
+        card.classList.remove('display-mode-none');
+      } 
+      else {
+        card.classList.add('display-mode-none');
+      }
+    })
+  } else {
+    document.getElementById('favorite-button').innerHTML = `View ${counter} Favorites`;
+    cards.forEach(function(card) {
+      card.classList.remove('display-mode-none');
+    });
+  }
+}
 
-//     if (photo.favorite) {
-//       document.querySelector('.photo-card').classList.add('display-mode-none');
-//       console.log('fire');
-//   } else {
-//       document.querySelector('.photo-card').classList.remove('display-mode-none');
-//       console.log('elsefire');
-//   }
-// }
+function showAll() {
+  var cards = document.querySelectorAll('.photo-card');
+  cards.forEach(function(card) {
+    card.classList.remove('display-mode-none');
+  })
+}
+
+
+
+
+
