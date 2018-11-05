@@ -121,13 +121,14 @@ function update(inc) {
 document.getElementById('search-input').addEventListener('keyup', searchFilter);
 
 function searchFilter() {
+  //logic to find out whether it includes favorite-active and then do below
   Object.keys(localStorage).forEach(function(cardObj) {
     let matchingCardsObject = document.getElementById(`${JSON.parse(localStorage[cardObj]).id}`);
     let matchingCards = matchingCardsObject.parentNode.parentNode;
     let localStorageTitle = JSON.parse(localStorage[cardObj]).title;
     let localStorageCaption = JSON.parse(localStorage[cardObj]).caption;
     let searchInput = document.getElementById('search-input').value.toLowerCase();
-    if (!localStorageTitle.toLowerCase().includes(searchInput) && !localStorageCaption.toLowerCase().includes(searchInput)) {
+    if (!localStorageTitle.toLowerCase().includes(searchInput) && !localStorageCaption.toLowerCase().includes(searchInput)){
       matchingCards.classList.add('display-mode-none');
     } else if (localStorageTitle.toLowerCase().includes(searchInput) && localStorageCaption.toLowerCase().includes(searchInput)) {
       matchingCards.classList.remove('display-mode-none');
@@ -135,9 +136,9 @@ function searchFilter() {
   });
 }
 
-document.getElementById('favorite-button').addEventListener('click', setFavorites);
+document.getElementById('favorite-button').addEventListener('click', toggleCards);
 
-function setFavorites() {
+function toggleCards() {
   var cards = document.querySelectorAll('.photo-card');
   if (document.getElementById('favorite-button').innerHTML === `View ${counter} Favorites`) {
     document.getElementById('favorite-button').innerHTML = 'View All Photos';
@@ -155,13 +156,6 @@ function setFavorites() {
       card.classList.remove('display-mode-none');
     });
   }
-}
-
-function showAll() {
-  var cards = document.querySelectorAll('.photo-card');
-  cards.forEach(function(card) {
-    card.classList.remove('display-mode-none');
-  })
 }
 
 
