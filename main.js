@@ -82,7 +82,6 @@ document.querySelector('.card-section').addEventListener('keyup', function(e) {
   }
 });
 
-
 function updateCard(e) {
   var id = e.target.closest('.photo-card').firstChild.firstChild.nextSibling.id;
   var json = localStorage.getItem(id);
