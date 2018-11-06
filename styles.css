@@ -18,6 +18,18 @@ header {
   display: none;
 }
 
+.empty-message {
+  background-color: #9E9E9E;
+  border-radius: 16px;
+  border: 1px solid #C2B2B4;
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 20px;
+}
+
 .page-title-foto {
   color: #FFFFFF;
   font-weight: 800;
