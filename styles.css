@@ -14,6 +14,10 @@ header {
   justify-content: space-between;
 }
 
+.display-mode-none {
+  display: none;
+}
+
 .page-title-foto {
   color: #FFFFFF;
   font-weight: 800;
@@ -176,6 +180,7 @@ header {
   color: #3E2A35;
   padding: 5px 10px;
   font-size: 18px;
+  overflow: hidden;
 }
 
 .card-caption {
