@@ -247,25 +247,22 @@ h4 {
   .search-form {
     width: 80%;
   }
-  .row-buttons {
-    flex-direction: column;
-  }
   .inputs {
     width: 80%;
   }
   .buttons {
     width: 80%;
-  }
-  .row-buttons {
-    margin-left: -15px;
-  }
-  #favorite-button, 
-  #add-button {
-    width: 275px;
+    font-size: 13px;
   }
   .inputfile + label {
     width: 100%;
+  }
+  .row-buttons {
+    width: 108%;
+    margin: 0px;
+  }
 }
+
 
 
 
