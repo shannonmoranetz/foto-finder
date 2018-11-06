@@ -72,6 +72,8 @@ function reloadCards() {
 
   function removeCard(e) {
     if (e.target.className === 'delete-icon card-icon') {
+      counter--;
+      document.getElementById('favorite-button').innerText = `View ${counter} Favorites`;
       var id = e.target.closest('.photo-card').firstChild.firstChild.nextSibling.id;
       var json = localStorage.getItem(id);
       var photoObj = JSON.parse(json);
@@ -175,8 +177,4 @@ function toggleCards() {
     });
   }
 }
-
-
-
-
 
