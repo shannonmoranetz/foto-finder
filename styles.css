@@ -238,5 +238,34 @@ h4 {
  background-repeat: no-repeat;
 }
 
+@media only screen and (max-width: 620px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .search-form {
+    width: 80%;
+  }
+  .row-buttons {
+    flex-direction: column;
+  }
+  .inputs {
+    width: 80%;
+  }
+  .buttons {
+    width: 80%;
+  }
+  .row-buttons {
+    margin-left: -15px;
+  }
+  #favorite-button, 
+  #add-button {
+    width: 275px;
+  }
+  .inputfile + label {
+    width: 100%;
+}
+
 
 
