@@ -22,15 +22,15 @@ function setProperties() {
   var upload = document.querySelector('.inputfile').files[0];
   var url = URL.createObjectURL(upload);
   var newPhoto = new Photo('', titleInput.value, captionInput.value, url, '');
-  newPhoto.saveToStorage(); 
-  addCard(newPhoto); 
+  newPhoto.saveToStorage();
+  addCard(newPhoto);
 };
 
 function addCard(photo) {
   var card = document.createElement('section');
   var cardSection = document.querySelector('.card-section');
   card.className = 'photo-card';
-  card.innerHTML = 
+  card.innerHTML =
   `<div class="card-content">
   <h2 class="card-title" id="${photo.id}" contenteditable= "true">${photo.title}</h2>
   <img class="card-image" src=${photo.file}>
@@ -42,7 +42,7 @@ function addCard(photo) {
   </div>
   `
   displayEmptyMessage();
-  cardSection.insertBefore(card, cardSection.firstChild); 
+  cardSection.insertBefore(card, cardSection.firstChild);
   if (photo.favorite) {
     update(photo.favorite);
     document.querySelector('.favorite-icon').classList.add('favorite-active');
@@ -70,32 +70,24 @@ function changeImage(e, photo) {
 
 document.querySelector('.card-section').addEventListener('click', removeCard);
 
-function checkFavoriteOnDelete() {
-  Object.keys(localStorage).filter(function(card) {
-    if (card.favorite === true) {
-      console.log('fire')
+function decrementFavoriteOnDelete(favorite) {
+  if (favorite) {
+    console.log('fire');
     counter--;
     document.getElementById('favorite-button').innerText = `View ${counter} Favorites`;
+  } else {
+    return;
   }
-})
 }
-
-
-//   if (document.querySelector('.favorite-active').src === "images/favorite-active.svg") {
-//     console.log('IFRE');
-//     counter--;
-//     document.getElementById('favorite-button').innerText = `View ${counter} Favorites`;
-//   }
-// }
 
 function removeCard(e) {
   if (e.target.className === 'delete-icon card-icon') {
-    checkFavoriteOnDelete();
     var id = e.target.closest('.photo-card').firstChild.firstChild.nextSibling.id;
     var json = localStorage.getItem(id);
     var photoObj = JSON.parse(json);
     var {id, title, caption, file, favorite} = photoObj;
     var photo = new Photo(id, title, caption, file, favorite);
+    decrementFavoriteOnDelete(favorite);
     photo.deleteFromStorage();
     e.target.closest('.photo-card').remove();
   }
@@ -149,7 +141,7 @@ function update(inc) {
   if(inc) {
     counter++;
   }
-  else { 
+  else {
     counter--;
   }
   document.getElementById('favorite-button').innerText = `View ${counter} Favorites`;
@@ -181,7 +173,7 @@ function toggleCards() {
     cards.forEach(function(card) {
       if (card.childNodes[2].childNodes[3].classList.contains('favorite-active')) {
         card.classList.remove('display-mode-none');
-      } 
+      }
       else {
         card.classList.add('display-mode-none');
       }
@@ -193,4 +185,3 @@ function toggleCards() {
     });
   }
 }
-
