@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Foto Finder</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel = 'stylesheet' href = 'normalize.css'> 
-  <link rel = 'stylesheet' href = 'styles.css'> 
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet"> 
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">  
+  <head>
+    <title>Foto Finder</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel = 'stylesheet' href = 'normalize.css'> 
+    <link rel = 'stylesheet' href = 'styles.css'> 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">  
 </head>
 <body>
-
   <header>
     <h1 class="page-title-foto">FOTO<img class="site-logo" src="images/foto-finder-logo.svg"><span class="page-title-finder">FINDER</span></h1>
     <form class="search-form">
@@ -19,9 +18,7 @@
         <i class="fas fa-search"></i>
       </button>
     </form>
-
   </header>
-
   <section class="entry-section">
     <label for="title-input" class="inputs labels">Title</label>
     <input type="text" id="title-input" class="inputs">
@@ -33,16 +30,13 @@
       <div class="row-buttons">
         <button id="favorite-button" class="buttons">View 0 Favorites</button>
         <button id="add-button" class="buttons">Add to Album</button>
-       </div>
+      </div>
     </div>
-
   </section>
-
   <section class="card-section filter-favorites">
-  <h4 class="empty-message">Please upload a photo above.</h4>
+    <h4 class="empty-message">Please upload a photo above.</h4>
   </section>
-
-<script type="text/javascript" src="photo.js"></script>
-<script type="text/javascript" src="main.js"></script>
-</body>
+  <script type="text/javascript" src="photo.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+  </body>
 </html>

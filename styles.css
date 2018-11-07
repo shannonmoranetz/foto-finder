@@ -30,6 +30,8 @@ header {
   padding: 20px;
 }
 
+/*header*/
+
 .page-title-foto {
   color: #FFFFFF;
   font-weight: 800;
@@ -78,6 +80,8 @@ header {
   color: #FFFFFF;
   padding: 6px;
 }
+
+/*entry (top) section of page*/
 
 .entry-section {
   background-color: #3E2A35;
@@ -175,7 +179,7 @@ header {
   cursor: pointer;
 }
 
-/* cards */
+/*cards*/
 
 .card-section {
   display: flex;
@@ -249,6 +253,8 @@ h4 {
  height: 150px;
  background-repeat: no-repeat;
 }
+
+/*mobile layout*/
 
 @media only screen and (max-width: 620px) {
   header {

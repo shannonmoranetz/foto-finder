@@ -22,15 +22,16 @@ function addCard(photo) {
   var card = document.createElement('section');
   var cardSection = document.querySelector('.card-section');
   card.className = 'photo-card';
+  var {id, title, caption, file, favorite} = photo;
   card.innerHTML =
   `<div class="card-content">
-  <h2 class="card-title" id="${photo.id}" contenteditable= "true">${photo.title}</h2>
-  <img class="card-image" src=${photo.file}>
-  <h4 class="card-caption" contenteditable="true">${photo.caption}</h4>
+  <h2 class="card-title" id="${id}" contenteditable= "true">${title}</h2>
+  <img class="card-image" src=${file}>
+  <h4 class="card-caption" contenteditable="true">${caption}</h4>
   </div>
   <div class="card-bottom">
   <img class="delete-icon card-icon" src="images/delete.svg">
-  <img class="favorite-icon card-icon" src="${favoriteImage(photo.favorite)}">
+  <img class="favorite-icon card-icon" src="${favoriteImage(favorite)}">
   </div>
   `
   displayEmptyMessage();
@@ -41,7 +42,7 @@ function addCard(photo) {
   }
 };
 
-function changeImage(e, photo) {
+function changeFavoriteImage(e, photo) {
   var elem = e.target;
   if (photo.favorite) {
     elem.classList.add('favorite-active');
@@ -72,7 +73,7 @@ function favoriteCard(e) {
     var photo = retrieveCard(e);
     photo.favorite = !photo.favorite;
     photo.saveToStorage();
-    changeImage(e, photo);
+    changeFavoriteImage(e, photo);
     updateCounter(photo.favorite);
   }
 };
