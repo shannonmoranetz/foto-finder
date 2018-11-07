@@ -2,62 +2,47 @@ var titleInput = document.getElementById('title-input');
 var captionInput = document.getElementById('caption-input');
 var counter = 0;
 
-document.getElementById('add-button').addEventListener('click', setProperties);
-
 reloadCards();
 
-function reloadCards() {
-  Object.keys(localStorage).forEach(function(key) {
-    addCard(JSON.parse(localStorage.getItem(key)));
-  })
-};
-
-function displayEmptyMessage() {
-  if(!document.querySelector('.empty-message').classList.contains('display-mode-none')) {
-    document.querySelector('.empty-message').classList.toggle('display-mode-none');
+document.querySelector('.card-section').addEventListener('click', favoriteCard);
+document.querySelector('.card-section').addEventListener('click', removeCard);
+document.getElementById('search-input').addEventListener('keyup', searchFilter);
+document.getElementById('add-button').addEventListener('click', setProperties);
+document.getElementById('favorite-button').addEventListener('click', toggleCards);
+document.querySelector('.card-section').addEventListener('focusout', updateCard);
+document.querySelector('.card-section').addEventListener('keyup', function(e) {
+  if (e.keyCode === 13) {
+    updateCard(e);
+    document.querySelector('.card-caption').blur();
+    document.querySelector('.card-title').blur();
   }
-}
-
-function setProperties() {
-  var upload = document.querySelector('.inputfile').files[0];
-  var url = URL.createObjectURL(upload);
-  var newPhoto = new Photo('', titleInput.value, captionInput.value, url, '');
-  newPhoto.saveToStorage();
-  addCard(newPhoto);
-};
+});
 
 function addCard(photo) {
   var card = document.createElement('section');
   var cardSection = document.querySelector('.card-section');
   card.className = 'photo-card';
+  var {id, title, caption, file, favorite} = photo;
   card.innerHTML =
   `<div class="card-content">
-  <h2 class="card-title" id="${photo.id}" contenteditable= "true">${photo.title}</h2>
-  <img class="card-image" src=${photo.file}>
-  <h4 class="card-caption" contenteditable="true">${photo.caption}</h4>
+  <h2 class="card-title" id="${id}" contenteditable= "true">${title}</h2>
+  <img class="card-image" src=${file}>
+  <h4 class="card-caption" contenteditable="true">${caption}</h4>
   </div>
   <div class="card-bottom">
   <img class="delete-icon card-icon" src="images/delete.svg">
-  <img class="favorite-icon card-icon" src="${favoriteImage(photo)}">
+  <img class="favorite-icon card-icon" src="${favoriteImage(favorite)}">
   </div>
   `
   displayEmptyMessage();
   cardSection.insertBefore(card, cardSection.firstChild);
   if (photo.favorite) {
-    update(photo.favorite);
+    updateCounter(photo.favorite);
     document.querySelector('.favorite-icon').classList.add('favorite-active');
   }
 };
 
-function favoriteImage(photo) {
-  if (photo.favorite) {
-    return "images/favorite-active.svg";
-  } else {
-    return "images/favorite.svg";
-  }
-}
-
-function changeImage(e, photo) {
+function changeFavoriteImage(e, photo) {
   var elem = e.target;
   if (photo.favorite) {
     elem.classList.add('favorite-active');
@@ -68,86 +53,77 @@ function changeImage(e, photo) {
   }
 };
 
-document.querySelector('.card-section').addEventListener('click', removeCard);
-
 function decrementFavoriteOnDelete(favorite) {
   if (favorite) {
-    console.log('fire');
     counter--;
     document.getElementById('favorite-button').innerText = `View ${counter} Favorites`;
   } else {
     return;
   }
-}
+};
+
+function displayEmptyMessage() {
+  if(!document.querySelector('.empty-message').classList.contains('display-mode-none')) {
+    document.querySelector('.empty-message').classList.toggle('display-mode-none');
+  }
+};
+
+function favoriteCard(e) {
+  if (e.target.classList.contains('favorite-icon')) {
+    var photo = retrieveCard(e);
+    photo.favorite = !photo.favorite;
+    photo.saveToStorage();
+    changeFavoriteImage(e, photo);
+    updateCounter(photo.favorite);
+  }
+};
+
+function favoriteImage(favorite) {
+  if (favorite) {
+    return "images/favorite-active.svg";
+  } else {
+    return "images/favorite.svg";
+  }
+};
+
+function reloadCards() {
+  Object.keys(localStorage).forEach(function(key) {
+    addCard(JSON.parse(localStorage.getItem(key)));
+  })
+};
 
 function removeCard(e) {
   if (e.target.className === 'delete-icon card-icon') {
-    var id = e.target.closest('.photo-card').firstChild.firstChild.nextSibling.id;
-    var json = localStorage.getItem(id);
-    var photoObj = JSON.parse(json);
-    var {id, title, caption, file, favorite} = photoObj;
-    var photo = new Photo(id, title, caption, file, favorite);
-    decrementFavoriteOnDelete(favorite);
+    var photo = retrieveCard(e);
+    decrementFavoriteOnDelete(photo.favorite);
     photo.deleteFromStorage();
     e.target.closest('.photo-card').remove();
   }
   toggleMessage();
 };
 
-function toggleMessage() {
-  if (Object.keys(localStorage).length === 0) {
-    document.querySelector('.empty-message').classList.remove('display-mode-none');
-  }
-}
-document.querySelector('.card-section').addEventListener('focusout', updateCard);
-document.querySelector('.card-section').addEventListener('keyup', function(e) {
-  if (e.keyCode === 13) {
-    updateCard(e);
-  }
-});
-
-function updateCard(e) {
-  var id = e.target.closest('.photo-card').firstChild.firstChild.nextSibling.id;
-  var json = localStorage.getItem(id);
-  var photoObj = JSON.parse(json);
-  var {id, title, caption, file, favorite} = photoObj;
-  var photo = new Photo(id, title, caption, file, favorite);
-
-  if (e.target.className === 'card-title') {
-    photo.updatePhoto(e.target.innerText, 'title');
-  }
-  if (e.target.className === 'card-caption') {
-    photo.updatePhoto(e.target.innerText, 'caption');
-  }
-};
-
-document.querySelector('.card-section').addEventListener('click', favorite);
-
-function favorite(e) {
-  if (e.target.classList.contains('favorite-icon')) {
+function retrieveCard(e) {
     var id = e.target.closest('.photo-card').firstChild.firstChild.nextSibling.id;
     var json = localStorage.getItem(id);
     var photoObj = JSON.parse(json);
     var {id, title, caption, file, favorite} = photoObj;
     var photo = new Photo(id, title, caption, file, favorite);
-    photo.favorite = !photo.favorite;
-    photo.saveToStorage();
-    changeImage(e, photo);
-    update(photo.favorite);
-  }
+    return photo;
 };
 
-function update(inc) {
-  if(inc) {
-    counter++;
-  }
-  else {
-    counter--;
-  }
-  document.getElementById('favorite-button').innerText = `View ${counter} Favorites`;
-}
+function setProperties() {
+  var upload = document.querySelector('.inputfile').files[0];
+  var url = URL.createObjectURL(upload);
+  var newPhoto = new Photo('', titleInput.value, captionInput.value, url, '');
+  newPhoto.saveToStorage();
+  addCard(newPhoto);
+};
 
-document.getElementById('search-input').addEventListener('keyup', searchFilter);
+function toggleMessage() {
+  if (Object.keys(localStorage).length === 0) {
+    document.querySelector('.empty-message').classList.remove('display-mode-none');
+  }
+};
 
 function searchFilter() {
   Object.keys(localStorage).forEach(function(cardObj) {
@@ -161,10 +137,8 @@ function searchFilter() {
     } else if (localStorageTitle.toLowerCase().includes(searchInput) && localStorageCaption.toLowerCase().includes(searchInput)) {
       matchingCards.classList.remove('display-mode-none');
     }
-  });
-}
-
-document.getElementById('favorite-button').addEventListener('click', toggleCards);
+  })
+};
 
 function toggleCards() {
   var cards = document.querySelectorAll('.photo-card');
@@ -184,4 +158,24 @@ function toggleCards() {
       card.classList.remove('display-mode-none');
     });
   }
-}
+};
+
+function updateCard(e) {
+  var photo = retrieveCard(e);
+  if (e.target.className === 'card-title') {
+    photo.updatePhoto(e.target.innerText, 'title');
+  }
+  if (e.target.className === 'card-caption') {
+    photo.updatePhoto(e.target.innerText, 'caption');
+  }
+};
+
+function updateCounter(increment) {
+  if(increment) {
+    counter++;
+  }
+  else {
+    counter--;
+  }
+  document.getElementById('favorite-button').innerText = `View ${counter} Favorites`;
+};
