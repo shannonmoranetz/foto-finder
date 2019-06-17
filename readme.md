@@ -16,7 +16,7 @@
 
 ### Tech Stack
 
-*   HTMl
+*   HTML
 *   CSS
 *   Javascript
 
