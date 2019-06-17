@@ -4,7 +4,7 @@
 
 * * *
 
-### Upload, view and favorite your locally saved photos with a card UI. Turing Mod 1 final project.
+### Upload, view and favorite your locally saved photos with a card UI.
 
 ![Screenshot](https://i.imgur.com/0t2V1zv.png)
 
