@@ -1,16 +1,25 @@
 # Foto Finder
 
-This is a web application designed to store a user's ideas. A photo card is made up a title, a caption, and a favorite value, all of which are created and stored locally within a separate class. The localStorage objects are retrieved and placed on the DOM accordingly. 
+## Upload and mark photos for sorting
 
-Main funcationality includes: Creating and deleting ideas, manipulating the quality value, and filtering ideas via both a search and quality function. 
+* * *
 
-The Ideabox application is supported on mobile devices up to 320px wide. 
+### Upload, view and favorite your locally saved photos with a card UI. Turing Mod 1 final project.
 
-## Desktop Version
+![Screenshot](https://i.imgur.com/0t2V1zv.png)
 
-![](images/index.png)
+### Features
 
+*   Upload photos
+*   Mark as favorites
+*   Filter by favorites
 
-## Original Comp
+### Tech Stack
 
-![](images/comp.png)
+*   HTMl
+*   CSS
+*   Javascript
+
+### Contributors
+
+* [Shannon Moranetz](https://github.com/shannonmoranetz)
